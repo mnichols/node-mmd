@@ -1,0 +1,24 @@
+{
+  "version":"0.1.0"
+  ,"name":"mmd"
+  ,"author":"Mike Nichols <nichols.mike.s@gmail.com>"
+  ,"homepage":"https://github.com/mnichols/node-mmd"
+  ,"main": "build/Release/mmd.node"
+  ,"files":[
+    "build/Release"
+    ,"README.md"
+    ,"Makefile"
+    ,"mmd.cc"
+    ,"binding.gyp"
+  ]
+  ,"scripts": {
+        "preinstall": "./bin/preinstall.sh"
+    }
+  ,"repository":{
+    "type":"git"
+    ,"url":"https://github.com/mnichols/node-mmd.git"
+  }
+  ,"bugs":{
+    "url":"https://github.com/mnichols/node-mmd/issues"
+  }
+}
