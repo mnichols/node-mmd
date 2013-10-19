@@ -12,7 +12,8 @@
     ,"binding.gyp"
   ]
   ,"scripts": {
-        "preinstall": "./bin/preinstall.sh"
+        "preinstall": "./bin/preinstall.sh",
+        "test":"./node_modules/.bin/mocha"
     }
   ,"repository":{
     "type":"git"
@@ -20,5 +21,9 @@
   }
   ,"bugs":{
     "url":"https://github.com/mnichols/node-mmd/issues"
+  }
+  ,"devDependencies": {
+    "mocha":"latest",
+    "chai":"latest"
   }
 }

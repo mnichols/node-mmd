@@ -1,0 +1,7 @@
+--require ./test/support
+--reporter spec
+--timeout 5000
+--ui bdd
+--colors
+--watch
+--recursive

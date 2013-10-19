@@ -12,5 +12,6 @@ git submodule update
 cd greg
 touch greg.c
 cd ..
-CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
+#CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
+make
 cd ../../ && node-gyp build
