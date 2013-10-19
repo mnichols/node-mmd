@@ -8,6 +8,7 @@ describe('when converting to html',function(){
         for(var input in expect) {
             if(expect.hasOwnProperty(input)){
                 var out = mmd.convert(input)
+                console.log('out',out)
                 out.should.equal(expect[input])
             }
         }

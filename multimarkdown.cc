@@ -11,6 +11,7 @@ enum markdown_extensions {
     EXT_COMPATIBILITY    = 1 << 4,
     EXT_PROCESS_HTML     = 1 << 5,
     EXT_NO_LABELS        = 1 << 6,
+    EXT_SNIPPET          = 1 << 7
 };
 
 enum markdown_formats {
@@ -32,7 +33,7 @@ using namespace v8;
 
 // Configuration
 int format = HTML_FORMAT;
-int extensions = EXT_SMART | EXT_NOTES;
+int extensions = EXT_SMART | EXT_NOTES | EXT_SNIPPET;
 
 Handle<Value> convert(const Arguments& args) {
     HandleScope scope;
