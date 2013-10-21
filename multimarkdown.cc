@@ -2,6 +2,9 @@
 #include <v8.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sstream>
+#include <vector>
+
 /* These are the basic extensions */
 enum parser_extensions {
         EXT_COMPATIBILITY   = 1 << 0,    /* Markdown compatibility mode */
@@ -42,6 +45,9 @@ enum export_formats {
 extern "C" {
     char * markdown_to_string(char *text, int extensions, int output_format);
 }
+extern "C" {
+    char * extract_metadata_keys(char *text,int extensions);
+}
 
 using namespace v8;
 
@@ -49,14 +55,74 @@ using namespace v8;
 int format = HTML_FORMAT;
 int extensions = EXT_SMART | EXT_NOTES | EXT_SNIPPET;
 
+std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
+}
+
+Handle<Value> MetadataKeys(const Arguments& args) {
+    HandleScope scope;
+    //uses v8::Value::IsString() method to determine if the arg is an string
+    if(args.Length() < 1 || !args[0]->IsString()) {
+        ThrowException(Exception::TypeError(String::New("Must pass file path as first argument")));
+        return scope.Close(Undefined());
+    }
+
+    //A Local<T> type of Handle<T>; contrasted to a Persistent<T> Handle
+    //Calls v8::Value::ToString(), returning an Local<String>
+    Local<String> ls = args[0]->ToString();
+
+    int stringLen = ls->Utf8Length();
+
+    // Allocate memory for input string
+    char *buf = (char*) malloc(stringLen + 1);
+    memset(buf, 0, stringLen + 1);
+    ls->WriteUtf8(buf, stringLen, NULL, 0);
+
+    // Convert to keys list
+    char *out = extract_metadata_keys(buf, 0);
+    free(buf);
+
+    // Convert to V8 string
+    std::vector<std::string> arr = split(out,'/n');
+    free(out);
+    v8::Handle<v8::Array> result = v8::Array::New(arr.size());
+    for (size_t i = 0; i < arr.size(); i++)
+      result->Set(i, arr[i]);
+    free(arr);
+
+    return scope.Close(result);
+
+
+
+}
+/**
+ * Handle<T> is a v8 Class Template reference
+ * ;an abstract class
+ * */
 Handle<Value> convert(const Arguments& args) {
     HandleScope scope;
 
+    //uses v8::Value::IsString() method to determine if the arg is an string
     if(args.Length() < 1 || !args[0]->IsString()) {
         ThrowException(Exception::TypeError(String::New("Must pass string as first argument")));
         return scope.Close(Undefined());
     }
 
+
+    //A Local<T> type of Handle<T>; contrasted to a Persistent<T> Handle
+    //Calls v8::Value::ToString(), returning an Local<String>
     Local<String> ls = args[0]->ToString();
 
     int stringLen = ls->Utf8Length();
@@ -99,6 +165,9 @@ Handle<Value> setFormat(const Arguments& args) {
 void init(Handle<Object> target) {
     target->Set(String::NewSymbol("convert"),
             FunctionTemplate::New(convert)->GetFunction());
+
+    target->Set(String::NewSymbol("metadataKeys"),
+            FunctionTemplate::New(MetadataKeys)->GetFunction());
 }
 
 
