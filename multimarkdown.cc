@@ -65,6 +65,9 @@ std::vector<std::string> &split(const std::string &s, char delim, std::vector<st
 }
 
 
+/**
+ * http://stackoverflow.com/questions/236129/how-to-split-a-string-in-c
+ * **/
 std::vector<std::string> split(const std::string &s, char delim) {
     std::vector<std::string> elems;
     split(s, delim, elems);
@@ -91,15 +94,16 @@ Handle<Value> MetadataKeys(const Arguments& args) {
     ls->WriteUtf8(buf, stringLen, NULL, 0);
 
     // Convert to keys list
-    char *out = extract_metadata_keys(buf, 0);
+    char *out = extract_metadata_keys(buf, EXT_SMART | EXT_NOTES);
     free(buf);
 
     // Convert to V8 string
     std::vector<std::string> arr = split(out,'\n');
     free(out);
     v8::Handle<v8::Array> result = v8::Array::New(arr.size());
-    for (size_t i = 0; i < arr.size(); i++)
+    for (size_t i = 0; i < arr.size(); i++) {
       result->Set(Number::New(i),String::New(&arr[i][0], arr[i].size()));
+    }
     arr.clear();
 
     return scope.Close(result);
