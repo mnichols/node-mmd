@@ -95,12 +95,12 @@ Handle<Value> MetadataKeys(const Arguments& args) {
     free(buf);
 
     // Convert to V8 string
-    std::vector<std::string> arr = split(out,'/n');
+    std::vector<std::string> arr = split(out,'\n');
     free(out);
     v8::Handle<v8::Array> result = v8::Array::New(arr.size());
     for (size_t i = 0; i < arr.size(); i++)
-      result->Set(i, arr[i]);
-    free(arr);
+      result->Set(Number::New(i),String::New(&arr[i][0], arr[i].size()));
+    arr.clear();
 
     return scope.Close(result);
 
