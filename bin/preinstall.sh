@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-node-gyp configure
+node-gyp configure --debug
 mkdir -p deps
 cd deps
 git clone https://github.com/fletcher/MultiMarkdown-4.git
@@ -12,6 +12,5 @@ git submodule update
 cd greg
 touch greg.c
 cd ..
-#CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
-make
-cd ../../ && node-gyp build
+CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
+cd ../../ && node-gyp build --debug

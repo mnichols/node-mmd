@@ -6,7 +6,7 @@ clean:
 	rm -rf deps
 
 compile:
-	./node_modules/.bin/node-gyp build
+	./node_modules/.bin/node-gyp build --debug
 
 test:
 	./node_modules/mocha/bin/mocha

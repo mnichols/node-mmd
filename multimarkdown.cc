@@ -4,6 +4,9 @@
 #include <string.h>
 #include <sstream>
 #include <vector>
+#include <fstream>
+#include <iostream>
+
 
 /* These are the basic extensions */
 enum parser_extensions {
@@ -43,13 +46,17 @@ enum export_formats {
 
 
 extern "C" {
-    char * markdown_to_string(char *text, int extensions, int output_format);
+    char * markdown_to_string(char *text, unsigned long extensions, int output_format);
 }
 extern "C" {
-    char * extract_metadata_keys(char *text,int extensions);
+    char * extract_metadata_keys(char *text,unsigned long extensions);
+}
+extern "C" {
+    char * extract_metadata_value(char *source, unsigned long extensions, char *key);
 }
 
 using namespace v8;
+using namespace std;
 
 // Configuration
 int format = HTML_FORMAT;
@@ -115,6 +122,59 @@ Handle<Value> MetadataKeys(const Arguments& args) {
  * Handle<T> is a v8 Class Template reference
  * ;an abstract class
  * */
+Handle<Value> ExtractMetadataValue(const Arguments& args) {
+    HandleScope scope;
+
+    //expects the _source_ as the first arg
+
+    //uses v8::Value::IsString() method to determine if the arg is an string
+    if(args.Length() < 1 || !args[0]->IsString()) {
+        ThrowException(Exception::TypeError(String::New("Must pass string as first argument")));
+        return scope.Close(Undefined());
+    }
+    //uses v8::Value::IsString() method to determine if the arg is an string
+    if(args.Length() < 1 || !args[1]->IsString()) {
+        ThrowException(Exception::TypeError(String::New("Must pass string as second argument")));
+        return scope.Close(Undefined());
+    }
+    //A Local<T> type of Handle<T>; contrasted to a Persistent<T> Handle
+    //Calls v8::Value::ToString(), returning an Local<String>
+    Local<String> ls = args[0]->ToString();
+
+    int stringLen = ls->Utf8Length();
+
+    // Allocate memory for input string
+    char *buf = (char*) malloc(stringLen + 1);
+    memset(buf, 0, stringLen + 1);
+    ls->WriteUtf8(buf, stringLen, NULL, 0);
+
+    Local<String> ks = args[1]->ToString();
+    int keyLen = ks->Utf8Length();
+    char *key = (char*) malloc(keyLen + 1);
+    memset(key, 0, keyLen + 1);
+    ks->WriteUtf8(key, keyLen, NULL, 0);
+
+    // Convert to keys list
+    unsigned long ext = 2096;
+    char *out = extract_metadata_value(buf, ext, key);
+    free(buf);
+    free(key);
+    if(!out) {
+        return scope.Close(Undefined());
+    }
+    // Convert to V8 string
+    // THIS is the part that is causing the SEGV
+    // due to some rottenness in out
+    Local<String> outString = String::New((char *)out);
+    free(out);
+
+    return scope.Close(outString);
+}
+
+/**
+ * Handle<T> is a v8 Class Template reference
+ * ;an abstract class
+ * */
 Handle<Value> convert(const Arguments& args) {
     HandleScope scope;
 
@@ -172,6 +232,9 @@ void init(Handle<Object> target) {
 
     target->Set(String::NewSymbol("metadataKeys"),
             FunctionTemplate::New(MetadataKeys)->GetFunction());
+
+    target->Set(String::NewSymbol("metadataValue"),
+            FunctionTemplate::New(ExtractMetadataValue)->GetFunction());
 }
 
 

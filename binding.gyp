@@ -17,7 +17,8 @@
                     "../deps/MultiMarkdown-4/beamer.o",
                     "../deps/MultiMarkdown-4/opml.o",
                     "../deps/MultiMarkdown-4/odf.o",
-                    "../deps/MultiMarkdown-4/critic.o"
+                    "../deps/MultiMarkdown-4/critic.o",
+                    "../deps/MultiMarkdown-4/rng.o"
 
                 ]
             }
