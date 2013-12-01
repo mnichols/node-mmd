@@ -2,7 +2,12 @@
     "targets": [
         {
             "target_name": "multimarkdown",
-            "sources":[ "multimarkdown.cc"],
+            "sources":[ 
+                "src/multimarkdown.cc"
+                ,"src/convert.cc"
+                ,"src/extract-metadata-value.cc"
+                ,"src/extract-metadata-keys.cc"
+            ],
             "link_settings": {
                 "libraries":[
                     "../deps/MultiMarkdown-4/multimarkdown.o",

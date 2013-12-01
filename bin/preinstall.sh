@@ -10,6 +10,8 @@ git submodule update
 #curl 'https://codeload.github.com/fletcher/MultiMarkdown-4/tar.gz/4.3.2' | tar zxvf - 
 #mv MultiMarkdown-4-* MultiMarkdown-4
 cd greg
+#sidestep a build err that occurs with greg sometimes
+#(see fletcher notes on building MMD)
 touch greg.c
 cd ..
 CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make

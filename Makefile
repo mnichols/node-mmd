@@ -6,6 +6,7 @@ clean:
 	rm -rf deps
 
 compile:
+	./node_modules/.bin/node-gyp configure --debug
 	./node_modules/.bin/node-gyp build --debug
 
 test:
