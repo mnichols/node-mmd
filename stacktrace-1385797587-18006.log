@@ -1,9 +1,0 @@
-PID 18006 received SIGSEGV for address: 0x0
-0   segfault_handler.node               0x0000000100af2b88 _ZL16segfault_handleriP9__siginfoPv + 196
-1   libsystem_platform.dylib            0x00007fff861055aa _sigtramp + 26
-2   ???                                 0x00001dd3fefe9c81 0x0 + 32796353404033
-3   node                                0x0000000100145c0e _ZN2v86String3NewEPKci + 318
-4   multimarkdown.node                  0x0000000100e7a3c1 _Z20ExtractMetadataValueRKN2v89ArgumentsE + 1009
-5   node                                0x000000010017091c _ZN2v88internalL21Builtin_HandleApiCallENS0_12_GLOBAL__N_116BuiltinArgumentsILNS0_21BuiltinExtraArgumentsE1EEEPNS0_7IsolateE + 460
-6   ???                                 0x00003b98c3906362 0x0 + 65527302087522
-7   ???                                 0x00003b98c39e9240 0x0 + 65527303017024

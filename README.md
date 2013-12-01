@@ -1,5 +1,15 @@
 # MultiMarkdown for node
 
-Very early in dev...DON'T USE IT YET since it doesn't do anything...
+
+## Goals
+
+* Expose [MultiMarkdown](https://github.com/fletcher/MultiMarkdown-4) to node in a friendlier API.
+
+## Support for
+
+* ~~Convert to HTML~~
+* ~~Extract metadata value(s)~~
+* Extract metadata key(s)
+
 
 
