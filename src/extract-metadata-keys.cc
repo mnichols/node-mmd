@@ -20,7 +20,6 @@ using namespace std;
 
 Handle<Value> ExtractMetadataKeys(const Arguments& args) {
     HandleScope scope;
-    int extensions = EXT_SMART | EXT_NOTES | EXT_SNIPPET;
     //uses v8::Value::IsString() method to determine if the arg is an string
     if(args.Length() < 1 || !args[0]->IsString()) {
         ThrowException(Exception::TypeError(String::New("Must pass file path as first argument")));

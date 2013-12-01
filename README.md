@@ -39,17 +39,19 @@ I/O concerns.
     * text
     * latex (TODO...not supported atm)
 
-### mmd.extract_metadata_value(source,key)
+### mmd.extractMetadataValue(source,key)
 
 * `source` {String} The content of the markdown
 * `key` {String} The metadata key to return
 * `return` {Array} The value(s) mapped to the metadata key.
     * If the key does not exist, an empty array `[]` is returned.
 
-### mmd.extract_metadata_keys(source)
+### mmd.extractMetadataKeys(source)
 
 * `source` {String} The content of the markdown
 * `return` {Array} The keys for any metadata in the document.
     * If the document does not contain metadata, an empty array `[]` is returned.
 
+## CHANGELOG
 
+* `4.4.2` initial release with v4.4.2 of MultiMarkdown-4 bindings

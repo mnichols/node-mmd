@@ -64,7 +64,6 @@ Handle<Value> ExtractMetadataValue(const Arguments& args) {
         free(out);
         return scope.Close(v8::Array::New(0));
     }
-    Local<String> outString = String::New((char *)out);
     Handle<Array> arr = Arrayed(out);
     free(out);
 

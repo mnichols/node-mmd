@@ -1,9 +1,9 @@
 {
     "targets": [
         {
-            "target_name": "multimarkdown",
+            "target_name": "mmd",
             "sources":[ 
-                "src/multimarkdown.cc"
+                "src/mmd.cc"
                 ,"src/convert.cc"
                 ,"src/extract-metadata-value.cc"
                 ,"src/extract-metadata-keys.cc"

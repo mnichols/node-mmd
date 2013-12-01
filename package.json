@@ -1,19 +1,24 @@
 {
-  "version":"0.1.0"
+  "version":"4.4.2"
   ,"name":"mmd"
   ,"author":"Mike Nichols <nichols.mike.s@gmail.com>"
   ,"homepage":"https://github.com/mnichols/node-mmd"
   ,"main": "build/Release/mmd.node"
+  ,"keywords": [
+    "markdown"
+    ,"markup"
+    ,"document"
+  ]
   ,"files":[
-    "build/Release"
+    "src"
     ,"README.md"
     ,"Makefile"
-    ,"mmd.cc"
     ,"binding.gyp"
+    ,"bin/preinstall.sh"
   ]
   ,"scripts": {
         "preinstall": "./bin/preinstall.sh",
-        "test":"./node_modules/.bin/mocha"
+        "test":"make test"
     }
   ,"repository":{
     "type":"git"

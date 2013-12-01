@@ -1,6 +1,6 @@
 'use strict';
 describe('when extracting metadata keys',function(){
-    var mmd = require('../build/Debug/multimarkdown.node')
+    var mmd = require('../build/Debug/mmd.node')
         ,fs = require('fs')
         ,path = require('path')
         ;

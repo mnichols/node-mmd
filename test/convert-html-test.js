@@ -1,6 +1,6 @@
 'use strict';
 describe('when converting to html fully',function(){
-    var mmd = require('../build/Debug/multimarkdown.node')
+    var mmd = require('../build/Debug/mmd.node')
         ,fs = require('fs')
         ,path = require('path')
         ;
@@ -33,7 +33,7 @@ describe('when converting to html fully',function(){
 
 })
 describe('when converting to html snippets',function(){
-    var mmd = require('../build/Debug/multimarkdown.node')
+    var mmd = require('../build/Debug/mmd.node')
         ,fs = require('fs')
         ,path = require('path')
         ;
