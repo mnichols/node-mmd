@@ -10,7 +10,7 @@
         ,"should"
     ]
     ,"bitwise":true
-    ,"camelcase":true
+    ,"camelcase":false
     ,"curly":true
     ,"devel":true
     ,"eqeqeq":true

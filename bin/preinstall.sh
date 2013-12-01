@@ -13,6 +13,7 @@ cd greg
 #sidestep a build err that occurs with greg sometimes
 #(see fletcher notes on building MMD)
 touch greg.c
-cd ..
-CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
+# build Multimarkdown-4
+cd .. && make
+#CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
 cd ../../ && node-gyp build --debug

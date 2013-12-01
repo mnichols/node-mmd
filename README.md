@@ -16,6 +16,7 @@
 * ~~Extract metadata key(s)~~
 
 
+
 ## API
 
 This is a low-level, 1-to-1 match of the MultiMarkdown-4 API.
@@ -26,6 +27,7 @@ I/O concerns.
 
 * `source` {String} The content of the markdown
 * `options` {Object}
+* `return` {String} The converted document
 
 ### Options
 
