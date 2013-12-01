@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "extensions.hpp"
+#include "arrayed.hpp"
 
 extern "C" {
     char * extract_metadata_keys(char *text,unsigned long extensions);
@@ -16,23 +17,6 @@ extern "C" {
 using namespace v8;
 using namespace std;
 
-std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
-    std::stringstream ss(s);
-    std::string item;
-    while (std::getline(ss, item, delim)) {
-        elems.push_back(item);
-    }
-    return elems;
-}
-
-/**
- * http://stackoverflow.com/questions/236129/how-to-split-a-string-in-c
- * **/
-std::vector<std::string> split(const std::string &s, char delim) {
-    std::vector<std::string> elems;
-    split(s, delim, elems);
-    return elems;
-}
 
 Handle<Value> ExtractMetadataKeys(const Arguments& args) {
     HandleScope scope;
@@ -58,14 +42,8 @@ Handle<Value> ExtractMetadataKeys(const Arguments& args) {
     char *out = extract_metadata_keys(buf, EXT_SMART | EXT_NOTES);
     free(buf);
 
-    // Convert to V8 string
-    std::vector<std::string> arr = split(out,'\n');
+    Handle<Array> result = Arrayed(out);
     free(out);
-    v8::Handle<v8::Array> result = v8::Array::New(arr.size());
-    for (size_t i = 0; i < arr.size(); i++) {
-      result->Set(Number::New(i),String::New(&arr[i][0], arr[i].size()));
-    }
-    arr.clear();
 
     return scope.Close(result);
 

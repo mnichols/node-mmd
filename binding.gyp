@@ -7,6 +7,7 @@
                 ,"src/convert.cc"
                 ,"src/extract-metadata-value.cc"
                 ,"src/extract-metadata-keys.cc"
+                ,"src/arrayed.cc"
             ],
             "link_settings": {
                 "libraries":[

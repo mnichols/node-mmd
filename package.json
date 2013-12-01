@@ -27,7 +27,6 @@
   }
   ,"devDependencies": {
     "mocha":"latest",
-    "chai":"latest",
-    "segfault-handler":"*"
+    "chai":"latest"
   }
 }

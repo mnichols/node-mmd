@@ -6,23 +6,23 @@ describe('when extracting metadata value',function(){
         ;
     it('should return value for present keys',function(){
 
-        var file = path.resolve(__dirname,'simple2.md')
+        var file = path.resolve(__dirname,'simple-annotated.md')
         var source = fs.readFileSync(file,{encoding:'utf-8'})
         var author = mmd.extractMetadataValue(source,'author')
             ,title = mmd.extractMetadataValue(source,'title')
             ;
-        author.should.equal('mike')
-        title.should.equal('Simple Annotated')
+        author.should.eql(['M. Nichols','N. Nichols'])
+        title.should.eql(['Simple Annotated'])
 
     })
-    it('should return undefined for nonpresent keys',function(){
+    it('should return empty array for nonpresent keys',function(){
 
-        var file = path.resolve(__dirname,'simple2.md')
+        var file = path.resolve(__dirname,'simple-annotated.md')
         var source = fs.readFileSync(file,{encoding:'utf-8'})
         var nada = mmd.extractMetadataValue(source,'nada')
             ;
-        expect(nada).to.be.undefined
 
+        nada.should.eql([])
     })
 
 })

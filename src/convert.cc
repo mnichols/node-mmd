@@ -46,6 +46,47 @@ Handle<Value> Convert(const Arguments& args) {
         return scope.Close(Undefined());
     }
 
+    if(args.Length() == 2) {
+        Handle<Object> cfg = Handle<Object>::Cast(args[1]);
+        if(cfg->Has(String::New("full"))){
+            if((cfg->Get(String::New("full"))->IsBoolean())) {
+                bool _full  = cfg->Get(String::New("full"))->ToBoolean()->Value();
+                if(_full) {
+                    extensions &= ~EXT_SNIPPET;
+                    extensions = extensions | EXT_COMPLETE;
+                }
+            }
+        }
+        if(cfg->Has(String::New("format"))) {
+            if((cfg->Get(String::New("format"))->IsString())) {
+                Local<String> fmt = cfg->Get(String::New("format"))->ToString();
+                int fmtLen = fmt->Utf8Length();
+
+                char *fmtBuf = (char*) malloc(fmtLen + 1);
+                memset(fmtBuf,0,fmtLen+1);
+                fmt->WriteUtf8(fmtBuf,fmtLen,NULL,0);
+                if(strcmp(fmtBuf,"html")==0) {
+                    format = HTML_FORMAT;
+                } else if(strcmp(fmtBuf,"odf")==0) {
+                    format = ODF_FORMAT;
+                } else if(strcmp(fmtBuf,"text")==0) {
+                    format = TEXT_FORMAT;
+                } else if(strcmp(fmtBuf,"rtf")==0) {
+                    format = RTF_FORMAT;
+                } else {
+                    free(fmtBuf);
+                    ThrowException(Exception::TypeError(String::New("Invalid format")));
+                }
+
+                free(fmtBuf);
+
+
+            }
+
+        }
+
+    }
+
 
     //A Local<T> type of Handle<T>; contrasted to a Persistent<T> Handle
     //Calls v8::Value::ToString(), returning an Local<String>

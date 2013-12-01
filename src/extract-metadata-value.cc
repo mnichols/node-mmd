@@ -8,6 +8,7 @@
 #include <iostream>
 
 #include "extensions.hpp"
+#include "arrayed.hpp"
 
 extern "C" {
     char * extract_metadata_value(char *source, unsigned long extensions, char *key);
@@ -36,17 +37,16 @@ Handle<Value> ExtractMetadataValue(const Arguments& args) {
         ThrowException(Exception::TypeError(String::New("Must pass string as second argument")));
         return scope.Close(Undefined());
     }
-    //A Local<T> type of Handle<T>; contrasted to a Persistent<T> Handle
-    //Calls v8::Value::ToString(), returning an Local<String>
+
+
+    //The source content (markdown) from args[0]
     Local<String> ls = args[0]->ToString();
-
     int stringLen = ls->Utf8Length();
-
-    // Allocate memory for input string
     char *buf = (char*) malloc(stringLen + 1);
     memset(buf, 0, stringLen + 1);
     ls->WriteUtf8(buf, stringLen, NULL, 0);
 
+    //The metadata key from args[1]
     Local<String> ks = args[1]->ToString();
     int keyLen = ks->Utf8Length();
     char *key = (char*) malloc(keyLen + 1);
@@ -54,19 +54,21 @@ Handle<Value> ExtractMetadataValue(const Arguments& args) {
     ks->WriteUtf8(key, keyLen, NULL, 0);
 
     // Convert to keys list
-    //unsigned long ext = 2096;
+    //unsigned long ext = 2096; //multimarkdown command line has this value
     char *out = extract_metadata_value(buf, extensions, key);
     free(buf);
     free(key);
-    //the key either doesnt exist or is empty
-    //so just return undefined
     if(!out) {
-        return scope.Close(Undefined());
+        //the key either doesnt exist or is empty
+        //so just return empty array
+        free(out);
+        return scope.Close(v8::Array::New(0));
     }
     Local<String> outString = String::New((char *)out);
+    Handle<Array> arr = Arrayed(out);
     free(out);
 
-    return scope.Close(outString);
+    return scope.Close(arr);
 }
 
 
