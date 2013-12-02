@@ -1,9 +1,14 @@
 {
   "version":"4.4.2"
   ,"name":"mmd"
+  ,"description":"Wrapper for Fletcher Penney's MultiMarkdown-4"
   ,"author":"Mike Nichols <nichols.mike.s@gmail.com>"
   ,"homepage":"https://github.com/mnichols/node-mmd"
   ,"main": "build/Release/mmd.node"
+  ,"license":"MIT"
+  ,"engines":{
+    "node":">=0.10.16"
+  }
   ,"keywords": [
     "markdown"
     ,"markup"
