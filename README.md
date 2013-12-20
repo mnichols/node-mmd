@@ -10,12 +10,19 @@
 * ~~Convert to HTML~~
 * ~~Convert to ODF~~
 * ~~Convert to Text~~
-* ~~Convert to RTF~~
 * Convert to Latex (TODO)
 * ~~Extract metadata value(s)~~
 * ~~Extract metadata key(s)~~
 
 
+## Usage
+
+`npm install mmd`
+
+```js
+var mmd = require('mmd')
+var html = mmd.convert('# Look Ma!')
+```
 
 ## API
 
@@ -55,3 +62,4 @@ I/O concerns.
 ## CHANGELOG
 
 * `4.4.2` initial release with v4.4.2 of MultiMarkdown-4 bindings
+* `4.4.3` minor notes
