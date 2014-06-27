@@ -37,7 +37,7 @@ using namespace std;
  * */
 Handle<Value> Convert(const Arguments& args) {
     HandleScope scope;
-    unsigned long extensions = EXT_SMART | EXT_NOTES | EXT_SNIPPET;
+    unsigned long extensions = EXT_SMART | EXT_NOTES | EXT_SNIPPET | EXT_RANDOM_FOOT;
     int format = HTML_FORMAT;
 
     //uses v8::Value::IsString() method to determine if the arg is an string
