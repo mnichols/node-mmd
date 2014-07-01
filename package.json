@@ -1,11 +1,18 @@
 {
-  "version":"4.4.3"
+  "version":"4.4.4"
   ,"name":"mmd"
   ,"description":"Wrapper for Fletcher Penney's MultiMarkdown-4"
   ,"author":"Mike Nichols <nichols.mike.s@gmail.com>"
   ,"homepage":"https://github.com/mnichols/node-mmd"
   ,"main": "build/Release/mmd.node"
   ,"license":"MIT"
+  ,"contributors": [
+    {
+        "name": "William Ferrell",
+        "email": "willfe@gmail.com",
+        "url": "https://github.com/willfe"
+    }
+  ]
   ,"engines":{
     "node":">=0.10.16"
   }
