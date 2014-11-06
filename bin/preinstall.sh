@@ -14,6 +14,6 @@ cd greg
 #(see fletcher notes on building MMD)
 touch greg.c
 # build Multimarkdown-4
-cd .. && make
-#CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
+cd ..
+CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
 cd ../../ && node-gyp build
