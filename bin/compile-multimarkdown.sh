@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-node-gyp configure
 mkdir -p deps
 cd deps
 #curl -L https://github.com/fletcher/Multimarkdown-4/tarball/4.4.2 | tar zxvf -
@@ -16,4 +15,4 @@ touch greg.c
 # build Multimarkdown-4
 cd .. && make
 #CFLAGS='-fPIC -Wall -O3 -include GLibFacade.h -include parser.h -I ./ -D MD_USE_GET_OPT=1 -D_GNU_SOURCE' make
-cd ../../ && node-gyp build
+# cd ../../ && node-gyp build
