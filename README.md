@@ -1,5 +1,7 @@
 # MultiMarkdown for node
 
+[![Build Status](https://travis-ci.org/mnichols/node-mmd.svg?branch=master)](https://travis-ci.org/mnichols/node-mmd)
+
 
 ## Goals
 
