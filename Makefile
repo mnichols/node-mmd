@@ -3,6 +3,7 @@ MMD_DIR     = deps/MultiMarkdown-4
 MMD_OBJECTS = $(MMD_DIR)/multimarkdown.o
 TARGET      = $(BUILD)/Release/mmd.node
 TARGET     += $(BUILD)/Debug/mmd.node
+NODE_GYP    = ./node_modules/.bin/node-gyp
 
 all: clean $(TARGET)
 
@@ -13,8 +14,7 @@ multimarkdown: $(MMD_OBJECTS)
 $(MMD_OBJECTS):
 	./bin/compile-multimarkdown.sh
 
-$(TARGET): $(BUILD) $(MMD_OBJECTS)
-	npm install nan
+$(TARGET): $(BUILD) $(MMD_OBJECTS) $(NODE_GYP)
 	./node_modules/.bin/node-gyp configure --debug
 	./node_modules/.bin/node-gyp build --debug
 	./node_modules/.bin/node-gyp configure
@@ -23,12 +23,13 @@ $(TARGET): $(BUILD) $(MMD_OBJECTS)
 $(BUILD):
 	@mkdir -p $@
 
+$(NODE_GYP):
+	npm install nan
+	npm install node-gyp
+
 clean:
 	rm -rf build
 	rm -rf deps
-
-debug:
-	$(eval CFG = --debug)
 
 node_modules: package.json
 	npm install
