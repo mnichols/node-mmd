@@ -1,4 +1,5 @@
 #include <node.h>
+#include <nan.h>
 #include <v8.h>
 #include <stdlib.h>
 #include <string.h>
@@ -21,33 +22,31 @@ using namespace std;
  * Handle<T> is a v8 Class Template reference
  * ;an abstract class
  * */
-Handle<Value> ExtractMetadataValue(const Arguments& args) {
-    HandleScope scope;
+NAN_METHOD(ExtractMetadataValue) {
+    NanScope();
     int extensions = EXT_SMART | EXT_NOTES | EXT_SNIPPET;
 
     //expects the _source_ as the first arg
 
     //uses v8::Value::IsString() method to determine if the arg is an string
     if(args.Length() < 1 || !args[0]->IsString()) {
-        ThrowException(Exception::TypeError(String::New("Must pass string as first argument")));
-        return scope.Close(Undefined());
+        return NanThrowError("Must pass string as first argument");
     }
     //uses v8::Value::IsString() method to determine if the arg is an string
     if(args.Length() < 1 || !args[1]->IsString()) {
-        ThrowException(Exception::TypeError(String::New("Must pass string as second argument")));
-        return scope.Close(Undefined());
+        return NanThrowError("Must pass string as second argument");
     }
 
 
     //The source content (markdown) from args[0]
-    Local<String> ls = args[0]->ToString();
+    v8::Local<v8::String> ls = args[0]->ToString();
     int stringLen = ls->Utf8Length();
     char *buf = (char*) malloc(stringLen + 1);
     memset(buf, 0, stringLen + 1);
     ls->WriteUtf8(buf, stringLen, NULL, 0);
 
     //The metadata key from args[1]
-    Local<String> ks = args[1]->ToString();
+    v8::Local<v8::String> ks = args[1]->ToString();
     int keyLen = ks->Utf8Length();
     char *key = (char*) malloc(keyLen + 1);
     memset(key, 0, keyLen + 1);
@@ -62,12 +61,12 @@ Handle<Value> ExtractMetadataValue(const Arguments& args) {
         //the key either doesnt exist or is empty
         //so just return empty array
         free(out);
-        return scope.Close(v8::Array::New(0));
+        NanReturnValue(NanNew<v8::Array>(0));
     }
-    Handle<Array> arr = Arrayed(out);
+    v8::Handle<v8::Array> arr = Arrayed(out);
     free(out);
 
-    return scope.Close(arr);
+    NanReturnValue(arr);
 }
 
 

@@ -1,49 +1,50 @@
 {
-  "version":"4.4.4"
-  ,"name":"mmd"
-  ,"description":"Wrapper for Fletcher Penney's MultiMarkdown-4"
-  ,"author":"Mike Nichols <nichols.mike.s@gmail.com>"
-  ,"homepage":"https://github.com/mnichols/node-mmd"
-  ,"main": "build/Release/mmd.node"
-  ,"license":"MIT"
-  ,"contributors": [
+  "version": "4.4.4",
+  "name": "mmd",
+  "description": "Wrapper for Fletcher Penney's MultiMarkdown-4",
+  "author": "Mike Nichols <nichols.mike.s@gmail.com>",
+  "homepage": "https://github.com/mnichols/node-mmd",
+  "main": "build/Release/mmd.node",
+  "license": "MIT",
+  "contributors": [
     {
-        "name": "William Ferrell",
-        "email": "willfe@gmail.com",
-        "url": "https://github.com/willfe"
+      "name": "William Ferrell",
+      "email": "willfe@gmail.com",
+      "url": "https://github.com/willfe"
     }
-  ]
-  ,"engines":{
-    "node":">=0.10.16"
-  }
-  ,"keywords": [
-    "markdown"
-    ,"markup"
-    ,"document"
-  ]
-  ,"files":[
-    "src"
-    ,"README.md"
-    ,"Makefile"
-    ,"binding.gyp"
-    ,"bin/preinstall.sh"
-  ]
-  ,"scripts": {
-        "preinstall": "./bin/preinstall.sh",
-        "test":"make test"
-    }
-  ,"repository":{
-    "type":"git"
-    ,"url":"https://github.com/mnichols/node-mmd.git"
-  }
-  ,"bugs":{
-    "url":"https://github.com/mnichols/node-mmd/issues"
-  }
-  ,"dependencies": {
-    "node-gyp":"latest"
-  }
-  ,"devDependencies": {
-    "mocha":"latest",
-    "chai":"latest"
+  ],
+  "engines": {
+    "node": ">=0.10.16"
+  },
+  "keywords": [
+    "markdown",
+    "markup",
+    "document"
+  ],
+  "files": [
+    "src",
+    "README.md",
+    "Makefile",
+    "binding.gyp",
+    "bin/preinstall.sh"
+  ],
+  "scripts": {
+    "preinstall": "./bin/preinstall.sh",
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mnichols/node-mmd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mnichols/node-mmd/issues"
+  },
+  "dependencies": {
+    "node-gyp": "latest"
+  },
+  "devDependencies": {
+    "chai": "latest",
+    "mocha": "latest",
+    "nan": "^1.8.4"
   }
 }
