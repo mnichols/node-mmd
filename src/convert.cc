@@ -1,5 +1,6 @@
 #include <node.h>
 #include <v8.h>
+#include <nan.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sstream>
@@ -35,31 +36,30 @@ using namespace std;
  * Handle<T> is a v8 Class Template reference
  * ;an abstract class
  * */
-Handle<Value> Convert(const Arguments& args) {
-    HandleScope scope;
+NAN_METHOD(Convert) {
+    NanScope();
     unsigned long extensions = EXT_SMART | EXT_NOTES | EXT_SNIPPET | EXT_RANDOM_FOOT;
     int format = HTML_FORMAT;
 
     //uses v8::Value::IsString() method to determine if the arg is an string
     if(args.Length() < 1 || !args[0]->IsString()) {
-        ThrowException(Exception::TypeError(String::New("Must pass string as first argument")));
-        return scope.Close(Undefined());
+        return NanThrowError("Must pass string as first argument");
     }
 
     if(args.Length() == 2) {
-        Handle<Object> cfg = Handle<Object>::Cast(args[1]);
-        if(cfg->Has(String::New("full"))){
-            if((cfg->Get(String::New("full"))->IsBoolean())) {
-                bool _full  = cfg->Get(String::New("full"))->ToBoolean()->Value();
+        v8::Handle<v8::Object> cfg = v8::Handle<v8::Object>::Cast(args[1]);
+        if(cfg->Has(NanNew<v8::String>("full"))){
+            if((cfg->Get(NanNew<v8::String>("full"))->IsBoolean())) {
+                bool _full  = cfg->Get(NanNew<v8::String>("full"))->ToBoolean()->Value();
                 if(_full) {
                     extensions &= ~EXT_SNIPPET;
                     extensions = extensions | EXT_COMPLETE;
                 }
             }
         }
-        if(cfg->Has(String::New("format"))) {
-            if((cfg->Get(String::New("format"))->IsString())) {
-                Local<String> fmt = cfg->Get(String::New("format"))->ToString();
+        if(cfg->Has(NanNew<v8::String>("format"))) {
+            if((cfg->Get(NanNew<v8::String>("format"))->IsString())) {
+                Local<String> fmt = cfg->Get(NanNew<v8::String>("format"))->ToString();
                 int fmtLen = fmt->Utf8Length();
 
                 char *fmtBuf = (char*) malloc(fmtLen + 1);
@@ -75,7 +75,7 @@ Handle<Value> Convert(const Arguments& args) {
                     format = RTF_FORMAT;
                 } else {
                     free(fmtBuf);
-                    ThrowException(Exception::TypeError(String::New("Invalid format")));
+                    return NanThrowError("Invalid format");
                 }
 
                 free(fmtBuf);
@@ -90,7 +90,7 @@ Handle<Value> Convert(const Arguments& args) {
 
     //A Local<T> type of Handle<T>; contrasted to a Persistent<T> Handle
     //Calls v8::Value::ToString(), returning an Local<String>
-    Local<String> ls = args[0]->ToString();
+    v8::Local<v8::String> ls = args[0]->ToString();
 
     int stringLen = ls->Utf8Length();
 
@@ -104,10 +104,10 @@ Handle<Value> Convert(const Arguments& args) {
     free(buf);
 
     // Convert to V8 string
-    Local<String> outString = String::New(out);
+    v8::Local<v8::String> outString = NanNew<v8::String>(out);
     free(out);
 
-    return scope.Close(outString);
+    NanReturnValue(outString);
 }
 
 

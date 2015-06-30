@@ -2,9 +2,9 @@
 #define __EXTRACT_METADATA_VALUE_H_INCLUDE__
 
 #include <v8.h>
-using namespace v8;
+#include <nan.h>
 
-Handle<Value> ExtractMetadataValue(const Arguments& args);
+NAN_METHOD(ExtractMetadataValue);
 
 #endif
 

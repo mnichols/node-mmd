@@ -1,4 +1,5 @@
 #include <node.h>
+#include <nan.h>
 #include <v8.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,17 +19,17 @@ using namespace v8;
 using namespace std;
 
 
-Handle<Value> ExtractMetadataKeys(const Arguments& args) {
-    HandleScope scope;
+NAN_METHOD(ExtractMetadataKeys) {
+    NanScope();
+
     //uses v8::Value::IsString() method to determine if the arg is an string
     if(args.Length() < 1 || !args[0]->IsString()) {
-        ThrowException(Exception::TypeError(String::New("Must pass file path as first argument")));
-        return scope.Close(Undefined());
+        return NanThrowError("Must pass file path as first argument");
     }
 
     //A Local<T> type of Handle<T>; contrasted to a Persistent<T> Handle
     //Calls v8::Value::ToString(), returning an Local<String>
-    Local<String> ls = args[0]->ToString();
+    v8::Local<v8::String> ls = args[0]->ToString();
 
     int stringLen = ls->Utf8Length();
 
@@ -41,12 +42,10 @@ Handle<Value> ExtractMetadataKeys(const Arguments& args) {
     char *out = extract_metadata_keys(buf, EXT_SMART | EXT_NOTES);
     free(buf);
 
-    Handle<Array> result = Arrayed(out);
+    v8::Handle<v8::Array> result = Arrayed(out);
     free(out);
 
-    return scope.Close(result);
-
-
+    NanReturnValue(result);
 
 }
 

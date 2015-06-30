@@ -1,4 +1,5 @@
 #include <v8.h>
+#include <nan.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sstream>
@@ -52,15 +53,15 @@ std::vector<std::string> split(const std::string &s, char delim) {
 }
 
 
-Handle<Array> Arrayed(char *source, char delimiter='\n' ) {
+v8::Handle<v8::Array> Arrayed(char *source, char delimiter='\n' ) {
     if(!source) {
         return v8::Array::New(0);
     }
     // Convert to V8 string
     std::vector<std::string> arr = split(source,delimiter);
-    v8::Handle<v8::Array> result = v8::Array::New(arr.size());
+    v8::Handle<v8::Array> result = NanNew<v8::Array>(arr.size());
     for (size_t i = 0; i < arr.size(); i++) {
-        result->Set(Number::New(i),String::New(&arr[i][0], arr[i].size()));
+        result->Set(NanNew<v8::Number>(i),NanNew<v8::String>(&arr[i][0], arr[i].size()));
     }
     arr.clear();
     return result;

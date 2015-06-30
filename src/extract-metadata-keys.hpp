@@ -2,10 +2,8 @@
 #define __EXTRACT_METADATA_KEYS_H_INCLUDE__
 
 
-#include <v8.h>
+#include <nan.h>
 
-using namespace v8;
-
-Handle<Value> ExtractMetadataKeys(const Arguments& args);
+NAN_METHOD(ExtractMetadataKeys);
 
 #endif
