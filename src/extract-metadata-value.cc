@@ -61,7 +61,7 @@ NAN_METHOD(ExtractMetadataValue) {
         //the key either doesnt exist or is empty
         //so just return empty array
         free(out);
-        NanReturnValue(v8::Array::New(0));
+        NanReturnValue(NanNew<v8::Array>(0));
     }
     v8::Handle<v8::Array> arr = Arrayed(out);
     free(out);
