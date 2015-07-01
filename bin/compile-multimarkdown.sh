@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
+MMD_VERSION="4.7.1"
 mkdir -p deps
 cd deps
 #curl -L https://github.com/fletcher/Multimarkdown-4/tarball/4.4.2 | tar zxvf -
 #mv fletcher* MultiMarkdown-4
-git clone -b "4.4.2" https://github.com/fletcher/MultiMarkdown-4.git
+git clone -b $MMD_VERSION https://github.com/fletcher/MultiMarkdown-4.git
 cd MultiMarkdown-4
 git submodule init
 git submodule update
