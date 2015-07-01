@@ -1,5 +1,5 @@
 {
-  "version": "4.4.7",
+  "version": "4.7.1",
   "name": "mmd",
   "description": "Wrapper for Fletcher Penney's MultiMarkdown-4",
   "author": "Mike Nichols <nichols.mike.s@gmail.com>",

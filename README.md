@@ -2,12 +2,13 @@
 
 [![Build Status](https://travis-ci.org/mnichols/node-mmd.svg?branch=master)](https://travis-ci.org/mnichols/node-mmd)
 
-
 ## Goals
 
 * Expose [MultiMarkdown](https://github.com/fletcher/MultiMarkdown-4) to node.
 
-## Support for
+This addon is _usually_ revisioned in tandem with Fletcher's library.
+
+## MultiMarkdown Support for
 
 * ~~Convert to HTML~~
 * ~~Convert to ODF~~
@@ -63,5 +64,6 @@ I/O concerns.
 
 ## CHANGELOG
 
+* `4.7.1` using `nan` and bumped to fletcher's mmd 4.7.1 version
 * `4.4.2` initial release with v4.4.2 of MultiMarkdown-4 bindings
 * `4.4.3` minor notes
