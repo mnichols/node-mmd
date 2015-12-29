@@ -37,29 +37,29 @@ using namespace std;
  * ;an abstract class
  * */
 NAN_METHOD(Convert) {
-    NanScope();
+    Nan::HandleScope scope;
     unsigned long extensions = EXT_SMART | EXT_NOTES | EXT_SNIPPET | EXT_RANDOM_FOOT;
     int format = HTML_FORMAT;
 
     //uses v8::Value::IsString() method to determine if the arg is an string
     if(args.Length() < 1 || !args[0]->IsString()) {
-        return NanThrowError("Must pass string as first argument");
+        return Nan::ThrowError("Must pass string as first argument");
     }
 
     if(args.Length() == 2) {
         v8::Handle<v8::Object> cfg = v8::Handle<v8::Object>::Cast(args[1]);
-        if(cfg->Has(NanNew<v8::String>("full"))){
-            if((cfg->Get(NanNew<v8::String>("full"))->IsBoolean())) {
-                bool _full  = cfg->Get(NanNew<v8::String>("full"))->ToBoolean()->Value();
+        if(cfg->Has(Nan::New<v8::String>("full"))){
+            if((cfg->Get(Nan::New<v8::String>("full"))->IsBoolean())) {
+                bool _full  = cfg->Get(Nan::New<v8::String>("full"))->ToBoolean()->Value();
                 if(_full) {
                     extensions &= ~EXT_SNIPPET;
                     extensions = extensions | EXT_COMPLETE;
                 }
             }
         }
-        if(cfg->Has(NanNew<v8::String>("format"))) {
-            if((cfg->Get(NanNew<v8::String>("format"))->IsString())) {
-                Local<String> fmt = cfg->Get(NanNew<v8::String>("format"))->ToString();
+        if(cfg->Has(Nan::New<v8::String>("format"))) {
+            if((cfg->Get(Nan::New<v8::String>("format"))->IsString())) {
+                Local<String> fmt = cfg->Get(Nan::New<v8::String>("format"))->ToString();
                 int fmtLen = fmt->Utf8Length();
 
                 char *fmtBuf = (char*) malloc(fmtLen + 1);
@@ -75,7 +75,7 @@ NAN_METHOD(Convert) {
                     format = RTF_FORMAT;
                 } else {
                     free(fmtBuf);
-                    return NanThrowError("Invalid format");
+                    return Nan::ThrowError("Invalid format");
                 }
 
                 free(fmtBuf);
@@ -104,7 +104,7 @@ NAN_METHOD(Convert) {
     free(buf);
 
     // Convert to V8 string
-    v8::Local<v8::String> outString = NanNew<v8::String>(out);
+    v8::Local<v8::String> outString = Nan::New<v8::String>(out);
     free(out);
 
     NanReturnValue(outString);

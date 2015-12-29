@@ -10,14 +10,10 @@
 
 
 void init(v8::Handle<v8::Object> target) {
-    target->Set(NanNew<v8::String>("convert"),
-            NanNew<v8::FunctionTemplate>(Convert)->GetFunction());
-
-    target->Set(NanNew<v8::String>("extractMetadataKeys"),
-            NanNew<v8::FunctionTemplate>(ExtractMetadataKeys)->GetFunction());
-
-    target->Set(NanNew<v8::String>("extractMetadataValue"),
-            NanNew<v8::FunctionTemplate>(ExtractMetadataValue)->GetFunction());
+    Nan::HandleScope scope;
+    Nan::SetMethod(target, "convert", Convert);
+    Nan::SetMethod(target, "extractMetadataKeys", ExtractMetadataKeys);
+    Nan::SetMethod(target, "extractMetadataValue", ExtractMetadataValue);
 }
 
 
